@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appointment Confirmed | Dr. Dhriti Sharma</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(-45deg,#0f172a,#1e3a8a,#0f172a,#1e293b);background-size:400% 400%;animation:bg 15s ease infinite;color:white;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:100vh;text-align:center;}
+@keyframes bg{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.card{background:rgba(255,255,255,0.1);backdrop-filter:blur(20px);padding:40px 50px;border-radius:20px;max-width:400px;box-shadow:0 15px 40px rgba(0,0,0,0.4);}
+h1{font-size:40px;margin-bottom:20px;color:#4ade80;}
+p{font-size:18px;margin:10px 0;}
+button{padding:15px 25px;border:none;border-radius:12px;background:linear-gradient(45deg,#22c55e,#4ade80);color:white;font-size:18px;font-weight:600;cursor:pointer;margin-top:20px;}
+button:hover{background:linear-gradient(45deg,#16a34a,#22c55e);}
+</style>
+</head>
+<body>
+
+<div class="card">
+<h1>✅ Appointment Confirmed!</h1>
+<p id="greeting">Thank you for booking your appointment.</p>
+<p><strong>Service:</strong> <span id="serviceName"></span></p>
+<p><strong>Date:</strong> <span id="appointmentDate"></span></p>
+<p>You will receive confirmation via <strong>email or phone call</strong>.</p>
+<button onclick="window.location.href='index.html'">Back to Home</button>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const name = params.get('name') || '';
+const service = params.get('service') || '';
+const dateTime = params.get('date') || '';
+const phone = params.get('phone') || '';
+
+let formattedDate = dateTime;
+
+if(dateTime){
+    const d = new Date(dateTime);
+    formattedDate = d.toLocaleDateString('en-IN',{
+        weekday:'long',
+        year:'numeric',
+        month:'long',
+        day:'numeric'
+    });
+}
+
+document.getElementById('greeting').innerText = `Thank you, ${name}, for booking your appointment.`;
+document.getElementById('serviceName').innerText = service;
+document.getElementById('appointmentDate').innerText = formattedDate;
+</script>
+
+</body>
+</html>

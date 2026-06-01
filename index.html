@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dhriti Sharma | Mental Wellness</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background: url(clinical_psychology_4k.png) no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.7);
+  z-index: -1;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background: rgba(255,255,255,0.05);
+}
+.nav h2 { margin: 0; font-size: 24px; }
+.nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; }
+.nav a:hover { text-decoration: underline; }
+
+/* Hero Section */
+.hero {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+.hero h1 {
+  font-size: 50px;
+  background: linear-gradient(to right, #006eff, #003cff);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin: 10px 0;
+}
+.hero p { font-size: 20px; margin-bottom: 20px; }
+
+/* Buttons */
+button {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #22c55e, #4ade80);
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 10px;
+}
+button:hover {
+  background: linear-gradient(45deg, #16a34a, #22c55e);
+}
+
+/* Courses Section */
+.courses {
+  padding: 60px 20px;
+  text-align: center;
+}
+.courses h2 { font-size: 36px; margin-bottom: 40px; }
+.course-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+.course-card {
+  background: rgba(255,255,255,0.08);
+  padding: 25px;
+  border-radius: 20px;
+  width: 260px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.course-card:hover { transform: translateY(-10px); }
+.course-card .icon { font-size: 40px; margin-bottom: 10px; }
+.course-card h3 { margin: 15px 0 10px; font-size: 20px; }
+.course-card p { font-size: 14px; margin-bottom: 15px; }
+
+/* Enroll Button */
+.enroll-btn {
+  padding: 10px 20px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #6366f1, #3b82f6);
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.enroll-btn:hover { transform: scale(1.05); }
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.modal-content {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  padding: 30px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+.modal input, .modal textarea {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+}
+.modal .success {
+  color: #4ade80;
+  font-weight: 600;
+  display: none;
+  margin-top: 10px;
+}
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 22px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 40px; }
+  .hero p { font-size: 18px; }
+  .course-card { width: 45%; }
+}
+
+@media (max-width: 500px) {
+  .nav { flex-direction: column; align-items: flex-start; }
+  .nav div { margin-top: 10px; }
+  .hero h1 { font-size: 32px; }
+  .hero p { font-size: 16px; }
+  .course-card { width: 100%; }
+  button { width: 100%; font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<div class="nav">
+  <h2>DHRITI SHARMA</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+  </div>
+</div>
+
+<!-- Hero Section -->
+<div class="hero">
+  <h1>DHRITI SHARMA</h1>
+  <p>Mental Wellness • Therapy • Healing</p>
+  <div>
+    <button onclick="window.location.href='appointment.html'">Book Appointment</button>
+    <button onclick="openModal()">Inquiry</button>
+  </div>
+</div>
+
+<!-- COURSES -->
+<section class="courses">
+  <h2>Services & Programs</h2>
+
+  <div class="course-container">
+
+    <div class="course-card" onclick="openService('Life Coach Program', `• Life Coach’s Characteristics and Skills
+• Successful Life Coaching Strategies
+• Types of Coaching Questions
+• Creating a SMART Action Plan
+• Developing a Vision for Life Coaching
+• Increasing Motivation
+• Conquering Negative Beliefs
+• Distinguishing Good and Bad Habits`, '')">
+      <div class="icon">📋</div>
+      <h3>Life Coach Program</h3>
+      <p>Develop coaching skills and motivation</p>
+      <a href="cources.html?course=Basic+Counselling+Skill" class="enroll-btn">Enroll</a>
+    </div>
+
+    <div class="course-card" onclick="openService('Psychology Mentorship Program', `A comprehensive mentorship program for aspiring psychologists covering client handling, legalities, data handling, and building brand value. Duration: 3 Months`, 'Duration: 3 Months')">
+      <div class="icon">🧩</div>
+      <h3>Psychology Mentorship Program</h3>
+      <p>Psychologist mentorship and branding</p>
+      <a href="cources.html?course=Basic+Counselling+Skill" class="enroll-btn">Enroll</a>
+    </div>
+
+    <div class="course-card" onclick="openService('Art Therapy Practitioner Course', `Introduction to Art Therapy, techniques for children, teens, and adults, including journaling.`, 'Duration: Varies')">
+      <div class="icon">🎨</div>
+      <h3>Art Therapy Practitioner Course</h3>
+      <p>Explore healing through art</p>
+      <a href="cources.html?course=Basic+Counselling+Skill" class="enroll-btn">Enroll</a>
+    </div>
+
+    <div class="course-card" onclick="openService('Career coach', `Suggests which skills you should learn to grow in your field`, ' ')">
+      <div class="icon">👨‍👩</div>
+      <h3>Career coach</h3>
+      <p> choose the right career path based on your interests, skills and goals. </p>
+      <a href="cources.html?course=Basic+Counselling+Skill" class="enroll-btn">Enroll</a>
+    </div>
+
+    <div class="course-card" onclick="openService('Child Psychology Program', `IQ assessment, childhood disorders, theories of development, behavior modification techniques. Duration: 1 Month`, 'Duration: 1 Month')">
+      <div class="icon">🧸</div>
+      <h3>Child Psychology Program</h3>
+      <p>Understanding child development</p>
+      <a href="cources.html?course=Basic+Counselling+Skill" class="enroll-btn">Enroll</a>
+    </div>
+
+    <div class="course-card" onclick="openService('Basic Counselling Skill', `Counselling basics including perception, sessions, and objectives. Duration: 1 Week`, 'Duration: 1 Week')">
+      <div class="icon">🗣️</div>
+      <h3>Basic Counselling Skill</h3>
+      <p>Foundations of psychological counseling</p>
+      <a href="cources.html?course=Basic+Counselling+Skill" class="enroll-btn">Enroll</a>
+    </div>
+
+    <div class="course-card" onclick="openService('Hypnotherapy Level 1', `Hypnosis, body scanning, and therapeutic suggestions. Duration: 2 Months`, 'Duration: 2 Months')">
+      <div class="icon">💤</div>
+      <h3>Hypnotherapy Level 1</h3>
+      <p>Introduction to mind-body medicine</p>
+      <a href="cources.html?course=Basic+Counselling+Skill" class="enroll-btn">Enroll</a>
+    </div>
+
+    <div class="course-card" onclick="openService('Signature Analysis', `Learn to make accurate signature analysis, use of capitals, certificate of completion. Duration: 1 Week`, 'Duration: 1 Week')">
+      <div class="icon">✍️</div>
+      <h3>Signature Analysis</h3>
+      <p>Handwriting personality analysis</p>
+      <a href="cources.html?course=Basic+Counselling+Skill" class="enroll-btn">Enroll</a>
+    </div>
+
+    <div class="course-card" onclick="openService('Graphology Course', `Handwriting analysis, stress management, emotional resilience, and self-discovery. Duration: 2 Months`, 'Duration: 2 Months')">
+      <div class="icon">📝</div>
+      <h3>Graphology Course</h3>
+      <p>The art of handwriting analysis</p>
+      <a href="cources.html?course=Basic+Counselling+Skill" class="enroll-btn">Enroll</a>
+    </div>
+  </div>
+</section>
+<!-- Inquiry Modal -->
+<div class="modal" id="inquiryModal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2>Send Your Inquiry</h2>
+    <input id="inqName" placeholder="Your Name">
+    <input id="inqEmail" type="email" placeholder="Your Email">
+    <textarea id="inqMessage" placeholder="Your Question"></textarea>
+    <button onclick="sendInquiry()">Send</button>
+    <p class="success" id="inqSuccess">✅ Inquiry sent successfully!</p>
+  </div>
+</div>
+
+<script>
+function openModal() { document.getElementById('inquiryModal').style.display = 'flex'; }
+function closeModal() { document.getElementById('inquiryModal').style.display = 'none'; }
+function sendInquiry() {
+  const name = document.getElementById('inqName').value.trim();
+  const email = document.getElementById('inqEmail').value.trim();
+  const msg = document.getElementById('inqMessage').value.trim();
+  if (!name || !email || !msg) { alert("Fill all fields"); return; }
+  document.getElementById('inqSuccess').style.display = 'block';
+  setTimeout(() => {
+    document.getElementById('inqSuccess').style.display = 'none';
+    closeModal();
+  }, 2000);
+}
+</script>
+</body>
+</html>

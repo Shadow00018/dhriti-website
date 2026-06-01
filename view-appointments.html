@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Appointments | Dr. Dhriti Sharma</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Poppins',sans-serif;background:#0f172a;color:white;}
+h2{text-align:center;margin-top:20px;}
+table{width:90%;max-width:800px;margin:20px auto;border-collapse:collapse;}
+th,td{padding:12px;border:1px solid #4ade80;text-align:center;}
+th{background:#22c55e;color:#000;}
+</style>
+</head>
+<body>
+<h2>All Appointments</h2>
+<table id="appointmentsTable">
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Service</th>
+<th>Date</th>
+<th>Problem</th>
+</tr>
+</table>
+
+<script>
+async function loadAppointments(){
+    try{
+        const res = await fetch('http://localhost:3000/appointments');
+        const data = await res.json();
+        const table = document.getElementById('appointmentsTable');
+
+        data.forEach(app=>{
+            const row = table.insertRow();
+            row.insertCell(0).textContent = app.name;
+            row.insertCell(1).textContent = app.email;
+            row.insertCell(2).textContent = app.phone || '-';
+            row.insertCell(3).textContent = app.service;
+            row.insertCell(4).textContent = app.date;
+            row.insertCell(5).textContent = app.problem;
+        });
+    }catch(err){
+        alert('Failed to load appointments. Is backend running?');
+    }
+}
+
+loadAppointments();
+</script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course Booking | Dhriti Sharma</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url(clinical_psychology_4k.png) no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,0.8);
+    z-index: -1;
+  }
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: rgba(255,255,255,0.05);
+  }
+  .nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+  }
+  .hero {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .hero h1 {
+    font-size: 48px;
+    background: linear-gradient(135deg,#6366f1,#3b82f6);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 15px;
+  }
+  .hero p {
+    font-size: 20px;
+    margin-bottom: 40px;
+  }
+
+  .booking-form {
+    max-width: 500px;
+    margin: auto;
+    background: rgba(255,255,255,0.08);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  .booking-form h2 {
+    margin-bottom: 20px;
+  }
+
+  .booking-form input, .booking-form select, .booking-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+  }
+
+  .booking-form button {
+    padding: 12px 25px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(135deg,#6366f1,#3b82f6);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .booking-form button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg,#3b82f6,#6366f1);
+  }
+
+  .success {
+    display: none;
+    color: #4ade80;
+    font-weight: 600;
+    margin-top: 15px;
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <h2>DHRITI SHARMA</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>Course Booking</h1>
+  <p>Fill the form below to book your preferred course with Dhriti Sharma.</p>
+</div>
+
+<div class="booking-form">
+  <h2>Book Your Course</h2>
+  <input type="text" id="name" placeholder="Full Name" required>
+  <input type="email" id="email" placeholder="Email Address" required>
+  <select id="course">
+    <option value="">Select Course</option>
+    <option value="1:1 Therapy">Life Coach Program</option>
+    <option value="Stress Program">Psychology Mentorship Program</option>
+    <option value="Self-Healing Workshop">Art Therapy Practitioner Course</option>
+    <option value="Self-Healing Workshop"></option>
+    <option value="Self-Healing Workshop">Art Therapy Practitioner Course</option>
+    <option value="Self-Healing Workshop">Art Therapy Practitioner Course</option>
+  </select>
+  <input type="date" id="date" required>
+  <textarea id="message" placeholder="Message (Optional)"></textarea>
+  <button onclick="submitBooking()">Submit Booking</button>
+  <p class="success" id="success">✅ Booking submitted successfully!</p>
+</div>
+
+<script>
+function submitBooking() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const course = document.getElementById("course").value;
+  const date = document.getElementById("date").value;
+
+  if(!name || !email || !course || !date){
+    alert("Please fill all required fields");
+    return;
+  }
+
+  // Here you can integrate backend or email sending
+  console.log({name, email, course, date, message: document.getElementById("message").value});
+
+  document.getElementById("success").style.display = "block";
+
+  setTimeout(() => {
+    document.getElementById("success").style.display = "none";
+    document.getElementById("name").value = '';
+    document.getElementById("email").value = '';
+    document.getElementById("course").value = '';
+    document.getElementById("date").value = '';
+    document.getElementById("message").value = '';
+  }, 2000);
+}
+</script>
+
+</body>
+</html>

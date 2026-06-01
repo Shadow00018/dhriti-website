@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Appointment | Dr. Dhriti Sharma</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(-45deg,#0f172a,#1e3a8a,#0f172a,#1e293b);background-size:400% 400%;animation:bg 15s ease infinite;color:white;display:flex;flex-direction:column;min-height:100vh;}
+@keyframes bg{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.nav{display:flex;justify-content:space-between;padding:20px 40px;background:rgba(255,255,255,0.05);}
+.nav h2{margin:0;cursor:pointer;}
+.nav a{color:white;text-decoration:none;margin-left:20px;font-weight:500;}
+.nav a:hover{text-decoration:underline;}
+.container{flex-grow:1;display:flex;justify-content:center;align-items:center;padding:20px;}
+.card{background:rgba(255,255,255,0.1);backdrop-filter:blur(20px);padding:35px 40px;border-radius:20px;width:100%;max-width:400px;box-shadow:0 15px 40px rgba(0,0,0,0.4);text-align:center;}
+.card h2{margin-top:0;margin-bottom:20px;font-weight:600;}
+input, select, textarea{width:100%;margin:10px 0 20px;padding:12px 15px;border-radius:10px;border:none;font-size:16px;}
+textarea{min-height:80px;resize:vertical;}
+button{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(45deg,#22c55e,#4ade80);color:white;font-size:18px;font-weight:600;cursor:pointer;transition:0.3s;}
+button:hover{background:linear-gradient(45deg,#16a34a,#22c55e);}
+.cancel-btn{margin-top:10px;background:linear-gradient(45deg,#f59e0b,#fbbf24);}
+.admin-btn{margin-top:10px;background:linear-gradient(45deg,#ef4444,#dc2626);}
+.success{display:none;margin-top:15px;color:#4ade80;font-weight:600;}
+</style>
+</head>
+<body>
+
+<div class="nav">
+<h2 id="logo">Dr. Dhriti Sharma</h2>
+<div>
+<a href="index.html">Home</a>
+<a href="services.html">Services</a>
+</div>
+</div>
+
+<div class="container">
+<div class="card">
+<h2>Book Appointment</h2>
+
+<input id="name" placeholder="Full Name">
+<input id="age" type="number" placeholder="Age">
+<input id="email" type="email" placeholder="Email Address">
+<input id="phone" type="tel" placeholder="Phone Number (Optional)">
+
+<select id="service">
+<option value="" disabled selected>Select Service</option>
+<option>Life Coaching</option>
+<option>Graphology and Signature Analysis</option>
+<option>Career Coaching</option>
+<option>Human Resource Skills</option>
+<option>Psychotherapy</option>
+<option>Emotional Intelligence</option>
+<option>Hypnotherapy</option>
+<option>Counselling</option>
+<option>Psychotherapies</option>
+<option>Doodling Art</option>
+<option>Art Analysis</option>
+</select>
+
+<input id="date" type="date">
+<textarea id="problem" placeholder="Describe your concern"></textarea>
+
+<button onclick="book()">Confirm Appointment</button>
+
+<button onclick="cancelAppointment()" class="cancel-btn">
+❌ Cancel Appointment
+</button>
+
+<!-- 🔐 HIDDEN ADMIN BUTTON -->
+<button onclick="adminDelete()" class="admin-btn" id="adminBtn" style="display:none;">
+🔐 Admin Delete
+</button>
+
+<p class="success" id="successMsg">✅ Appointment Booked Successfully!</p>
+</div>
+</div>
+
+<script>
+// ✅ BOOK
+async function book(){
+    const name = document.getElementById("name").value.trim();
+    const age = document.getElementById("age").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const service = document.getElementById("service").value;
+    const date = document.getElementById("date").value;
+    const problem = document.getElementById("problem").value.trim();
+
+    if(!name || !age || !email || !service || !date || !problem){
+        alert("Please fill all required fields");
+        return;
+    }
+
+    try {
+        const res = await fetch("http://localhost:3000/appointments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, age, email, phone, service, date, problem })
+        });
+
+        const data = await res.json();
+
+        if(!res.ok){
+            alert(data.error);
+            return;
+        }
+
+        document.getElementById("successMsg").style.display = "block";
+
+    } catch(err){
+        alert("❌ Backend not connected");
+    }
+}
+
+// 🟡 SAFE CANCEL
+async function cancelAppointment(){
+    const email = document.getElementById("email").value.trim();
+
+    if(!email){
+        alert("Enter your email");
+        return;
+    }
+
+    if(!confirm("Are you sure you want to cancel?")){
+        return;
+    }
+
+    const confirmText = prompt("Type CANCEL to confirm:");
+    if(confirmText !== "CANCEL"){
+        alert("Cancelled action");
+        return;
+    }
+
+    try {
+        await fetch(`http://localhost:3000/appointments/${email}`, {
+            method: "DELETE"
+        });
+
+        alert("✅ Appointment cancelled");
+
+    } catch(err){
+        alert("❌ Error cancelling");
+    }
+}
+
+// 🔴 ADMIN DELETE
+async function adminDelete(){
+    const email = document.getElementById("email").value.trim();
+
+    const password = prompt("Enter Admin Password:");
+
+    if(password !== "admin123"){
+        alert("❌ Wrong password");
+        return;
+    }
+
+    if(!confirm("⚠️ Delete permanently?")){
+        return;
+    }
+
+    try {
+        await fetch(`http://localhost:3000/appointments/${email}`, {
+            method: "DELETE"
+        });
+
+        alert("✅ Deleted by admin");
+
+    } catch(err){
+        alert("❌ Error");
+    }
+}
+
+// 🔐 SECRET UNLOCK (DOUBLE CLICK TITLE)
+document.getElementById("logo").addEventListener("dblclick", () => {
+    const key = prompt("Enter Admin Key:");
+
+    if(key === "admin123"){
+        document.getElementById("adminBtn").style.display = "block";
+        alert("✅ Admin mode ON");
+    } else {
+        alert("❌ Wrong key");
+    }
+});
+</script>
+
+</body>
+</html>
